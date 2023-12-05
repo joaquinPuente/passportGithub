@@ -1,0 +1,12 @@
+<h1>Informacion del usuario</h1>
+<table>
+    <tbody>
+        {{#each user}}
+            <tr>
+                <td>{{@key}}</td> <!-- Muestra el nombre del campo -->
+                <td>{{this}}</td> <!-- Muestra el valor del campo -->
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+<a href="http://localhost:8080/api/products">Volver🔙</a>

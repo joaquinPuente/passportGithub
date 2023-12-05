@@ -8,13 +8,14 @@
       </div>
 
       <a href="/api/carts">Carritos 🛒</a>
+      <a href="/api/session/current">Current🔍</a>
       <a href="/api/chat">Chat sobre productos😎</a>
       <a href="/logout">Logout🔒</a>
     </div>
     </nav>
 
     <h1>Bienvenido {{user.first_name}} {{user.last_name}} ! 😎 </h1>
-
+    <p>role: {{user.role}}</p>
     <div class="card-container">
     {{#each payload}}
     <div class="card">
@@ -28,10 +29,10 @@
       <a href="/api/products/{{this._id}}">Detalles🔍</a>
       <br><br>
       <form action="/api/addToCart" method="post">
-        <input type="hidden" name="productId" value="{{this._id}}">
-        <label for="cid">Carrito ID</label>
-        <input type="number" id="cid" name="cid">
-        <button type="submit">Agregar al carrito</button>
+        <form action="/api/addToCart" method="post">
+          <input type="hidden" name="productId" value="{{this._id}}">
+          <button type="submit">Agregar al carrito</button>
+        </form>
       </form>
     </div>
     {{/each}}
@@ -75,7 +76,7 @@
     const permisos = document.getElementById('permisos');
 
     // Realiza la verificación y cambia el contenido basado en el usuario
-    if ("{{user.user}}" === 'admin') {
+    if ("{{user.role}}" === 'ADMIN') {
       permisos.innerHTML = `
         <a href="/api/createProduct">Crear Producto🙌</a>
         <a href="/api/deleteProduct">Borrar Producto🗑️</a>

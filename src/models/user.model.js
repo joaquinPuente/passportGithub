@@ -1,13 +1,16 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import Cart from './cart.model.js';
 
 const userSchema = mongoose.Schema({
-    first_name: String ,
-    last_name: String ,
-    email: {type:String, unique:true} ,
+    first_name: String,
+    last_name: String,
+    email: { type: String, unique: true },
     age: Number,
-    password: String ,
+    password: String,
     user: String,
     provider: String,
-},{timestamps:true});
+    role: { type: String, default: 'usuario' }, 
+    cart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } 
+}, { timestamps: true });
 
-export default mongoose.model('User', userSchema)
+export default mongoose.model('User', userSchema);

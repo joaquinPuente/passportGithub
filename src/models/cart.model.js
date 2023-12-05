@@ -1,19 +1,13 @@
-import mongoose from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate-v2';
+import mongoose, { Schema } from 'mongoose';
 
-const productSchema = new mongoose.Schema({
-    productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'products', // Reemplaza 'Product' con el nombre de tu modelo de productos
-    },
-    quantity: { type: Number, default: 0 },
-},{_id:false});
-
-const cartSchema = new mongoose.Schema({
-    cartNumber: { type: Number, required: true, unique: true },
-    products: [productSchema],
+const cartItemSchema = new Schema({
+    product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    quantity: { type: Number, default: 1 }
 });
 
-cartSchema.plugin(mongoosePaginate)
+const cartSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    items: [cartItemSchema]
+});
 
 export default mongoose.model('Cart', cartSchema);
