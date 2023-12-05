@@ -7,6 +7,8 @@ import cartRouter from './routers/api/cart.router.js';
 import chatRouter from './routers/api/chat.router.js';
 import indexRouter from './routers/api/index.router.js';
 import sessionRouter from './routers/api/sessions.router.js'
+import productByRouterBase from "./routers/api/productsByRouterBase.router.js";
+import cartByRouterBase from "./routers/api/cartByRouterBase.router.js";
 import ExpressSession from 'express-session'
 import mongoStore from 'connect-mongo'
 import path from 'path';
@@ -18,6 +20,9 @@ import { init as initPassportConfig } from './config/passport.config.js';
 const app = express();
 const secret = 'coder123'
 
+const productsBase = new productByRouterBase()
+const cartBase = new cartByRouterBase()
+
 app.use(ExpressSession({
   secret: secret,
   resave: false,
@@ -25,7 +30,7 @@ app.use(ExpressSession({
   store: mongoStore.create({
     mongoUrl: URI,
     mongoOptions:{},
-    ttl:120
+    ttl:3600
   }),
   })
 )
@@ -44,9 +49,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', homeRouter, indexRouter, sessionRouter);
-app.use('/api', productRouter);
-app.use('/api', cartRouter);
-app.use('/api', chatRouter);
+app.use('/api', productsBase.getRouter() , cartBase.getRouter(), chatRouter);
 
 app.use((error, req, res, next) => {
   const message = `Ah ocurrido un error desconocido 😨: ${error.message}`;
