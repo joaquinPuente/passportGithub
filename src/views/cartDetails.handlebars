@@ -1,28 +1,28 @@
 <table id="cart-table">
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Descripción</th>
-      <th>Precio</th>
-      <th>Cantidad</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each userCart.items}}
-      <tr>
-        <td>{{this.product.title}}</td>
-        <td>{{this.product.description}}</td>
-        <td>${{this.product.price}}</td>
-        <td>{{this.quantity}}</td>
-        <td>
-          <form action="/api/removeFromCart" method="post" class="remove-form">
-            <input type="hidden" name="productId" value="{{this.product._id}}">
-            <button type="submit" class="remove-button">Eliminar🗑️</button>
-          </form>
-        </td>
-      </tr>
-    {{/each}}
-  </tbody>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>${{this.price}}</td>
+                <td>{{this.quantity}}</td>
+                <td>
+                    <form action="/api/removeFromCart" method="post" class="remove-form">
+                        <input type="hidden" name="productId" value="{{this.id}}">
+                        <button type="submit" class="remove-button">Eliminar🗑️</button>
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
 </table>
 <a href="/api/products">Volver🔙</a>

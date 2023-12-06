@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Cart from './cart.model.js';
+import cart from './cart.model.js';
 
 const userSchema = mongoose.Schema({
     first_name: String,
@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     user: String,
     provider: String,
     role: { type: String, default: 'usuario' }, 
-    cart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } 
+    cart: { type: mongoose.Schema.Types.ObjectId, ref: 'carts' } 
 }, { timestamps: true });
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('users', userSchema);
